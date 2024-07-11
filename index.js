@@ -31,6 +31,7 @@ app.get("/", (req, res) => {
 app.post("/get-weather", async (req, res) => {
     const { city } = req.body;
     try {
+        // Fetch current weather data
         const result = await axios.get(`${API_URL}/weather`, {
             params: {
                 q: city,
@@ -38,19 +39,50 @@ app.post("/get-weather", async (req, res) => {
                 units: 'imperial'
             }
         });
+        // Fetch 5-day forecast data
+        const forecast = await axios.get(`${API_URL}/forecast`, {
+            params: {
+                q: city,
+                appid: API_KEY,
+                units: 'metric'
+            }
+        });
+
+        // Check if it will rain tomorrow
+        const rainTomorrow = forecast.data.list.some(item => {
+            const forecastDate = new Date(item.dt * 1000);
+            return forecastDate.getDate() === new Date().getDate() + 1 && item.weather.some(w => w.main === 'Rain');
+        });
+
+        // Fetch UV index data
+        const lat = result.data.coord.lat;
+        const lon = result.data.coord.lon;
+        const uvIndexResponse = await axios.get(`${API_URL}/uvi`, {
+            params: {
+                lat,
+                lon,
+                appid: API_KEY
+            }
+        });
+
+        // Check if sunscreen is needed
+        const uvIndex = uvIndexResponse.data.value;
+        const sunscreenNeeded = uvIndex > 3;
 
         // Add city to search history
         searchHistory.push(city);
 
-        res.render('index.ejs', {
+        res.render("index.ejs", {
             weather: [{
                 city: result.data.name,
                 temperature: result.data.main.temp,
                 description: result.data.weather[0].description,
                 icon: result.data.weather[0].icon,
+                rainTomorrow,
+                sunscreenNeeded
             }],
             error: null,
-            history: searchHistory,
+            history: searchHistory
         });
     } catch (error) {
         console.error(error);
@@ -78,15 +110,47 @@ app.get("/current-location", async (req, res) => {
             },
         });
 
+        // Fetch 5-day forecast data
+        const forecastResponse = await axios.get(`${API_URL}/forecast`, {
+            params: {
+                q: city,
+                appid: API_KEY,
+                units: "metric",
+            },
+        });
+
+        // Check if it will rain tomorrow
+        const rainTomorrow = forecastResponse.data.list.some(item => {
+            const forecastDate = new Date(item.dt * 1000);
+            return forecastDate.getDate() === new Date().getDate() + 1 && item.weather.some(w => w.main === 'Rain');
+        });
+
+        // Fetch UV index data
+        const lat = weatherResponse.data.coord.lat;
+        const lon = weatherResponse.data.coord.lon;
+        const uvIndexResponse = await axios.get(`${API_URL}/uvi`, {
+            params: {
+                lat,
+                lon,
+                appid: API_KEY
+            }
+        });
+
+        // Check if sunscreen is needed
+        const uvIndex = uvIndexResponse.data.value;
+        const sunscreenNeeded = uvIndex > 3;
+
         // Add city to search history
         searchHistory.push(city);
 
-        res.render('index.ejs', {
+        res.render("index.ejs", {
             weather: [{
                 city: weatherResponse.data.name,
                 temperature: weatherResponse.data.main.temp,
                 description: weatherResponse.data.weather[0].description,
                 icon: weatherResponse.data.weather[0].icon,
+                rainTomorrow,
+                sunscreenNeeded
             }],
             error: null,
             history: searchHistory,
