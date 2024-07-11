@@ -1,27 +1,121 @@
 body {
-    background-color: #f8f9fa;
+    background-color: #f1f1f1; /* Light Gray */
+    color: #31255a; /* Dark Blue */
+    font-family: 'Arial', sans-serif;
     transition: background-color 0.5s ease;
   }
   
   body.sunny {
-    background-color: #ffeb3b;
+    background-color: #8fe0ff; /* Light Blue */
   }
   
   body.cloudy {
-    background-color: #b0bec5;
+    background-color: #75b4e3; /* Mid Blue */
   }
   
   body.rainy {
-    background-color: #90caf9;
+    background-color: #2b235a; /* Deep Blue */
   }
   
   header {
-    background-color: #343a40;
+    background-color: #31255a; /* Dark Blue */
     color: white;
     padding: 20px;
-  }
-  
-  .card {
+    border-radius: 8px;
     margin-bottom: 20px;
+    text-align: center;
   }
-  
+
+  h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+ 
+/* Form Styles */
+form {
+    background-color: #ffffff; /* White */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form-group label {
+    color: #31255a; /* Dark Blue */
+}
+
+input.form-control {
+    border: 1px solid #75b4e3; /* Mid Blue */
+    border-radius: 4px;
+}
+
+button.btn-primary {
+    background-color: #31255a; /* Dark Blue */
+    border: none;
+    border-radius: 4px;
+}
+
+button.btn-primary:hover {
+    background-color: #54416d; /* Dark Purple */
+}
+
+a.btn-secondary {
+    background-color: #2b235a; /* Deep Blue */
+    border: none;
+    border-radius: 4px;
+}
+
+a.btn-secondary:hover {
+    background-color: #54416d; /* Dark Purple */
+}
+
+/* Weather Info Styles */
+.card {
+    margin-bottom: 20px;
+    border: 1px solid #75b4e3; /* Mid Blue */
+    border-radius: 8px;
+}
+
+.card-body {
+    background-color: #ffffff; /* White */
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.75rem;
+    color: #31255a; /* Dark Blue */
+}
+
+.card-text {
+    color: #31255a; /* Dark Blue */
+}
+
+.card-text img {
+    max-width: 50px;
+    vertical-align: middle;
+}
+
+/* History Styles */
+.list-group-item {
+    background-color: #ffffff; /* White */
+    border: 1px solid #75b4e3; /* Mid Blue */
+}
+
+.list-group-item:nth-child(odd) {
+    background-color: #f1f1f1; /* Light Gray */
+}
+
+.list-group-item:hover {
+    background-color: #75b4e3; /* Mid Blue */
+    color: #ffffff; /* White */
+}
+
+/* Alerts */
+.alert-info {
+    background-color: #8fe0ff; /* Light Blue */
+    color: #31255a; /* Dark Blue */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Light Red */
+    color: #721c24; /* Dark Red */
+}

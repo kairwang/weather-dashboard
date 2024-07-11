@@ -5,15 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
-<body>
+<body class="<%= weather.length > 0 ? weather[0].description.split(' ')[0].toLowerCase() : 'default' %>">
     <div class="container">
-        <h1 class="text-center">Weather Dashboard</h1>
+        <header>
+            <h1 class="text-center">Weather Dashboard</h1>
+        </header>
 
         <form action="/get-weather" method="POST" class="mb-3">
             <div class="form-group">
@@ -28,10 +26,15 @@
         <div id="weather-info">
             <% if (weather.length > 0) { %>
                 <% weather.forEach(w => { %>
-                    <div class="alert alert-info">
-                        <strong>City:</strong> <%= w.city %> <br>
-                        <strong>Temperature:</strong> <%= w.temperature %> °C <br>
-                        <strong>Description:</strong> <%= w.description %>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= w.city %></h5>
+                            <p class="card-text">
+                                <img src="http://openweathermap.org/img/wn/<%= w.icon %>@2x.png" alt="<%= w.description %>">
+                                <strong>Temperature:</strong> <%= w.temperature %> °C <br>
+                                <strong>Description:</strong> <%= w.description %>
+                            </p>
+                        </div>
                     </div>
                 <% }) %>
             <% } %>

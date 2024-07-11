@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            padding-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
     <div class="container">
@@ -30,7 +26,7 @@
                 <% weather.forEach(w => { %>
                     <div class="alert alert-info">
                         <strong>City:</strong> <%= w.city %> <br>
-                        <strong>Temperature:</strong> <%= w.temperature %> °C <br>
+                        <strong>Temperature:</strong> <%= w.temperature %> F <br>
                         <strong>Description:</strong> <%= w.description %>
                     </div>
                 <% }) %>
