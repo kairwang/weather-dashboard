@@ -3,11 +3,14 @@ import axios from "axios";
 import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from "url";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 const port = 3000;
 const API_URL = "https://api.openweathermap.org/data/2.5";
-const API_KEY = "63a8f777ff82342a3326056f641f6604";
+const API_KEY = process.env.API_KEY;;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
