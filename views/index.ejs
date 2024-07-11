@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Weather Dashboard</h1>
+
+        <form action="/get-weather" method="POST" class="mb-3">
+            <div class="form-group">
+                <label for="city">Enter City:</label>
+                <input type="text" id="city" name="city" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Weather</button>
+        </form>
+
+        <a href="/current-location" class="btn btn-secondary mb-3">Get Weather for Current Location</a>
+
+        <div id="weather-info">
+            <% if (weather.length > 0) { %>
+                <% weather.forEach(w => { %>
+                    <div class="alert alert-info">
+                        <strong>City:</strong> <%= w.city %> <br>
+                        <strong>Temperature:</strong> <%= w.temperature %> °C <br>
+                        <strong>Description:</strong> <%= w.description %>
+                    </div>
+                <% }) %>
+            <% } %>
+            <% if (error) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } %>
+        </div>
+
+        <% if (history && history.length > 0) { %>
+            <h3 class="mt-4">Search History</h3>
+            <ul class="list-group">
+                <% history.forEach(city => { %>
+                    <li class="list-group-item"><%= city %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
